@@ -23,8 +23,13 @@ class Actor(MathBase,Observer,ConcreteSubject):
       self._configure()
     elif subject._state is "Sharing":
       self._share()
+    elif subject._state is "Time":
+      self._work()
 
     self.notify_all()
+
+  def _work(self):
+    """"""
 
   # SUBJECT PATTERN -------------------------------------------------
   def notify_all(self):
@@ -41,6 +46,7 @@ class Actor(MathBase,Observer,ConcreteSubject):
     # These connections are twofold:
     #   1. Connections expected (management)
     #   2. Connections desired (friends and associates)
+    # Neither of these connection patterns is good or bad, the goal is to recognize what patterns compliment each other best.
 
   # QUESTION PATTERN -------------------------------------------------
   def velocity(self):
