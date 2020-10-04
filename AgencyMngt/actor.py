@@ -6,14 +6,15 @@ from typing import Generator, Dict, Any, List
 
 @Factory.register("Actor")
 class Actor(MathBase,Observer,ConcreteSubject):
-  def __init__(self,**kwargs):
-    MathBase.__init__(self)
+
+  def __init__(self, *args, **kwargs):
     self.__dict__.update(kwargs)
 
     # There needs to be some serious configuration here for the Actor's states and initial connections.
 
   # OBSERVER PATTERN -----------------------------------------------
   def update(self, subject: Subject) -> None:
+
     # What are subject states that would make us act differently?
     if subject._state is "Tasking":
       self._listen()
@@ -26,13 +27,12 @@ class Actor(MathBase,Observer,ConcreteSubject):
     elif subject._state is "Time":
       self._work()
 
-    self.notify_all()
+    if subject.pubsub_message['type'] is 'spigot_data':
+        self.batch_in = subject.pubsub_message['data']
+        self.batch_out = self.batch_data(self.batch_in)
+        self._state_notify()
 
-  def _work(self):
-    """"""
-
-  # SUBJECT PATTERN -------------------------------------------------
-  def notify_all(self):
+  def _state_notify(self):
     # Does a simple pub/sub cover the simulation?
     # How do actor's find out what to subscribe to?
     # Why do they try to connect?
@@ -48,15 +48,27 @@ class Actor(MathBase,Observer,ConcreteSubject):
     #   2. Connections desired (friends and associates)
     # Neither of these connection patterns is good or bad, the goal is to recognize what patterns compliment each other best.
 
+    self.PubSub._state = 1  # Depending on the results of the algorithm, this state can have useful knowledge
+    self.PubSub.pubsub_message['data'] = self.batch_out
+    self.notify()
+
+
+  def _work(self):
+    """
+    https://neo4j.com/docs/graph-data-science/current/management-ops/graph-catalog-ops/index.html
+    """
+
+  # SUBJECT PATTERN -------------------------------------------------
+  def notify_all(self):
+    pass
+
   # QUESTION PATTERN -------------------------------------------------
   def velocity(self):
     # How productive are they now
-    return
-
-  def
+    pass
 
   # SHARING PATTERN -------------------------------------------------
-  def _share(self):
+  def _share(self): # packs the message and calls notify()
     # Swap helpful information
     # Store the information
     return
@@ -76,19 +88,3 @@ class Actor(MathBase,Observer,ConcreteSubject):
     # Update internal configuration
     # Configure variables
     return
-
-  # MATH PATTERN -----------------------------------------------
-  # It doesn't actually make sense to have the MathBase if it isn't clear how it plugs into something people want.
-  def batch_data(self) -> List[Dict[str, Any]]:
-    # I think I'd like to rename this, perhaps to load_batch()
-    """ Load  """
-    pass
-
-  def batch_write(self, data: List[Dict[str, Any]]):
-    # I think I'd like to rename this, perhaps to write_batch()?
-    """ Write all examples as a batch. """
-    pass
-
-  def close(self):
-    """ Close the Model IO class. """
-    pass
