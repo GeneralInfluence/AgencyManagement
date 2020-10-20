@@ -24,7 +24,6 @@ class Manager(): # Actor() with Management functions
   # OBSERVER PATTERN -----------------------------------------------
   def update(self, subject: Subject) -> None:
     """What are subject states that would make us act differently?"""
-
     if subject._state is "Tasking":
       self._listen()
 
