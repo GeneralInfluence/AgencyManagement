@@ -1,0 +1,132 @@
+
+run_strategy: local
+
+data_mode: batch
+
+independent_runs:
+
+  evangelists:
+
+    data_sources:
+      Pivotal_1:
+        type: Pivotal_1
+        file: tasking.py
+        format: lambda
+        path: /
+        function: StrategyTasks
+        num_devs: 4
+        max_velocity: 24
+        num_sprints: 100
+        observers:
+          - Manager_1
+
+      Pivotal_2:
+        type: Pivotal_2
+        file: tasking.py
+        format: lambda
+        path: /
+        function: StrategyTasks
+        num_devs: 4
+        max_velocity: 24
+        num_sprints: 100
+        observers:
+          - Manager_2
+
+    algorithms:
+      Manager_1:
+        name: Manager_1
+        path: /
+        type: Manager
+        observers:
+          - Developer_11
+          - Developer_12
+          - Developer_13
+          - Developer_14
+
+      Manager_2:
+        name: Manager_2
+        path: /
+        type: Manager
+        observers:
+          - Developer_21
+          - Developer_22
+          - Developer_23
+          - Developer_24
+
+      Developer_11:
+        name: Developer_11
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_1
+          - Developer_22
+          - Developer_23
+          - Developer_24
+
+      Developer_12:
+        name: Developer_12
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_1
+
+      Developer_13:
+        name: Developer_13
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_1
+
+      Developer_14:
+        name: Developer_14
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_1
+
+      Developer_21:
+        name: Developer_21
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_2
+          - Developer_12
+          - Developer_13
+          - Developer_14
+
+      Developer_22:
+        name: Developer_22
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_2
+
+      Developer_23:
+        name: Developer_23
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_2
+
+      Developer_24:
+        name: Developer_24
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_2

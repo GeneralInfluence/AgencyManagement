@@ -1,0 +1,68 @@
+
+run_strategy: local
+
+data_mode: batch
+
+independent_runs:
+
+  simple:
+
+    data_sources:
+      Pivotal_1:
+        type: Pivotal_1
+        file: tasking.py
+        format: lambda
+        path: /
+        function: StrategyTasks
+        num_devs: 4
+        max_velocity: 24
+        num_sprints: 100
+        observers:
+          - Manager_1
+
+    algorithms:
+      Manager_1:
+        name: Manager_1
+        path: /
+        type: Manager
+        observers:
+          - Developer_11
+          - Developer_12
+          - Developer_13
+          - Developer_14
+
+      Developer_11:
+        name: Developer_11
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_1
+
+      Developer_12:
+        name: Developer_12
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_1
+
+      Developer_13:
+        name: Developer_13
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_1
+
+      Developer_14:
+        name: Developer_14
+        path: /
+        type: Developer
+        class_name: Developer
+        velocity: 8
+        observers:
+          - Manager_1
